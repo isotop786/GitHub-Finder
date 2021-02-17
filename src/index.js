@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Another from './Another'
-import First from './First'
-import Yeamna from './Yeamna'
+
 
 // import reportWebVitals from './reportWebVitals';
 

@@ -12,7 +12,7 @@ const User  = ({user,loading})=>{
             
             <div style={userStyle}>
              { user.map(e=>(
-                          <UserItem key={e.id} user={e} />
+            <UserItem key={e.id} user={e} />
   
               ))
           }  

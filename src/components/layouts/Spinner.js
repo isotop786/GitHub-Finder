@@ -4,7 +4,7 @@ import git from './spinner.gif'
 const Spinner = ()=>{
 
     const style ={
-        marginTop:'15rem'
+        marginTop:'5rem'
     }
 
     return(
