@@ -19,6 +19,7 @@ class UserComp extends Component {
                     Hireable :{' '}
                     {hirable? <i className="fas fa-check text-success"></i> :
                     <i className="fas fa-times-circle text-danger"></i>}
+                    
                 </Fragment>
                 
                }
