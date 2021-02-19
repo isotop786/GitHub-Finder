@@ -10,12 +10,14 @@ import Search from './components/users/search'
 import Alert from './components/layouts/alert'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import About from './components/pages/about'
+import UserComp from './components/users/UserComp'
 
 const data = [];
 class App extends Component{
 
 state = {
   users:[],
+  user:{},
   loading:false,
   alert:null
 }
@@ -47,9 +49,22 @@ state = {
     setTimeout(()=> this.setState({alert:null}),3000)
   }
 
+  // Get single Github user 
+  getUser = async (login) =>{
+    this.setState({loading:true})
+
+    const res = await axios.get(
+      `https://api.github.com/users/${login}?
+      client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    )
+    console.log(res)
+
+    this.setState({user:res.data,loading:false})
+  }
+
 
   render(){
-     const {users,loading} = this.state
+     const {users,loading,user} = this.state
     return(
       <Router>
       <div className="">
@@ -82,6 +97,13 @@ state = {
               </Fragment>
             )}/>
 
+            <Route exact path="/user/:login" render={props=>(
+              <UserComp {...props} getUser={this.getUser} user={user}
+              loading={loading}
+              />
+            )}
+
+            />
           
           </Switch>
           
