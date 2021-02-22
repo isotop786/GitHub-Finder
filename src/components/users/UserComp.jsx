@@ -1,25 +1,25 @@
-import React, { Component,Fragment } from 'react'
+import React, { Fragment ,useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import Spinner from '../layouts/Spinner'
 import PropTypes from 'prop-types'
 import Repo from '../repos/Repos'
-class UserComp extends Component {
-    componentDidMount(){
-        this.props.getUser(this.props.match.params.login)
-        this.props.getUserRepos(this.props.match.params.login)
-    }
+const UserComp = ({user,loading,repos,getUser,getUserRepos,match })=>{
 
-    static propTypes = {
-        getUser:PropTypes.func.isRequired,
-        getUserRepos:PropTypes.func.isRequired,
-        repos:PropTypes.array.isRequired
-    }
-    render() {
+    useEffect(()=>{
+        getUser(match.params.login);
+        getUserRepos(match.params.login);
+    },[])
+
+    // componentDidMount(){
+    //     this.props.getUser(this.props.match.params.login)
+    //     this.props.getUserRepos(this.props.match.params.login)
+    // }
+
         const {name,avatar_url,location,
         bio,blog,login,html_url,followers,following,
-    public_repos,public_gists ,hirable} = this.props.user;
+    public_repos,public_gists ,hirable} = user;
 
-    const {loading,repos} = this.props;
+    
         return (
             <div>
                {loading ? <Spinner/> :
@@ -35,7 +35,7 @@ class UserComp extends Component {
                         <img src={avatar_url} className="round-img" alt="" style={{width:'150px'}}/>
                         <h1>{name}</h1>
                         <p>Location: {location}</p>
-                        <p>Company: {this.props.user.company}</p>
+                        <p>Company: {user.company}</p>
                     </div>
                     <div>
                         {bio && <Fragment>
@@ -72,7 +72,13 @@ class UserComp extends Component {
 
             </div>
         )
-    }
+  
+}
+
+UserComp.propTypes = {
+    getUser:PropTypes.func.isRequired,
+    getUserRepos:PropTypes.func.isRequired,
+    repos:PropTypes.array.isRequired
 }
 
 export default UserComp;
